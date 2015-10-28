@@ -134,7 +134,8 @@ class ILI9341_t3 : public Print
 	ILI9341_t3(uint8_t _CS, uint8_t _DC, uint8_t _RST = 255, uint8_t _MOSI=11, uint8_t _SCLK=13, uint8_t _MISO=12);
 	void begin(void);
 	void pushColor(uint16_t color);
-	void fillScreen(uint16_t color);
+	void fillScreen(uint16_t color);					///< only fills the screen with the given color but did not remember the color in bgcolor
+	void clearScreen(uint16_t bgColor);				///< clears fills the screen with bgColor and sets bgcolor
 	void drawPixel(int16_t x, int16_t y, uint16_t color);
 	void drawFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
 	void drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
@@ -189,13 +190,13 @@ class ILI9341_t3 : public Print
  protected:
 	int16_t _width, _height; // Display w/h as modified by current rotation
 	int16_t  cursor_x, cursor_y;
-	uint16_t textcolor, textbgcolor;
+	uint16_t textcolor, textbgcolor, bgColor;
 	uint8_t textsize, rotation;
 	boolean wrap; // If set, 'wrap' text at right edge of display
 	const ILI9341_t3_font_t *font;
 
-  	uint8_t  _rst;
-  	uint8_t _cs, _dc;
+  uint8_t  _rst;
+  uint8_t _cs, _dc;
 	uint8_t pcs_data, pcs_command;
 	uint8_t _miso, _mosi, _sclk;
 
@@ -311,6 +312,21 @@ public:
 	bool isPressed() { return currstate; }
 	bool justPressed() { return (currstate && !laststate); }
 	bool justReleased() { return (!currstate && laststate); }
+
+	void setTextColor(uint16_t tc){_textcolor = tc;}
+	uint16_t getTextColor(){return _textcolor;}
+
+	void setFillColor(uint16_t fc){_fillcolor = fc;}
+	uint16_t getFillColor(){return _fillcolor;}
+
+	void setOutlineColor(uint16_t oc){_outlinecolor = oc;}
+	uint16_t getOutlineColor(){return _outlinecolor;}
+
+	int16_t getWidth(){return _w;}
+	int16_t getHeight(){return _h;}
+	int16_t getX(){return _x;}
+	int16_t getY(){return _y;}
+
 private:
 	ILI9341_t3 *_gfx;
 	int16_t _x, _y;
