@@ -596,6 +596,73 @@ void ILI9341_t3::fillCircleHelper(int16_t x0, int16_t y0, int16_t r,
     }
   }
 }
+void ILI9341_t3::drawEllipse(int16_t x0, int16_t y0, int16_t r_x, int16_t r_y, uint16_t color)
+{
+  int16_t x, y;
+  int32_t e, e2, dx, dy, rx, ry;
+
+  x  = -r_x;
+  y  = 0;
+  dx = (1+(2*x))*r_y*r_y;
+  dy = x*x;
+  e  = dx+dy;
+  rx = 2*r_x*r_x;
+  ry = 2*r_y*r_y;
+
+  while(x <= 0)
+  {
+    drawPixel(x0 - x, y0 + y, color);
+    drawPixel(x0 + x, y0 + y, color);
+    drawPixel(x0 + x, y0 - y, color);
+    drawPixel(x0 - x, y0 - y, color);
+
+    e2 = 2*e;
+    if(e2 >= dx) { x++; dx += ry; e += dx; }
+    if(e2 <= dy) { y++; dy += rx; e += dy; }
+  }
+
+  while(y++ < r_y)
+  {
+    drawPixel(x0, y0 + y, color);
+    drawPixel(x0, y0 - y, color);
+  }
+
+  return;
+}
+
+
+void ILI9341_t3::fillEllipse(int16_t x0, int16_t y0, int16_t r_x, int16_t r_y, uint16_t color)
+{
+  int16_t x, y;
+  int32_t e, e2, dx, dy, rx, ry;
+
+  x  = -r_x;
+  y  = 0;
+  dx = (1+(2*x))*r_y*r_y;
+  dy = x*x;
+  e  = dx+dy;
+  rx = 2*r_x*r_x;
+  ry = 2*r_y*r_y;
+
+  while(x <= 0)
+  {
+    fillRect(x0 + x, y0 + y, 2*-x, 1, color);
+    fillRect(x0 + x, y0 - y, 2*-x, 1, color);
+
+    e2 = 2*e;
+    if(e2 >= dx) { x++; dx += ry; e += dx; }
+    if(e2 <= dy) { y++; dy += rx; e += dy; }
+  }
+
+  while(y++ < r_y)
+  {
+    drawPixel(x0, y0 + y, color);
+    drawPixel(x0, y0 - y, color);
+  }
+
+  return;
+}
+
 
 
 // Bresenham's algorithm - thx wikpedia
