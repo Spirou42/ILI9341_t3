@@ -187,15 +187,6 @@ void ILI9341_t3::invertDisplay(boolean i)
 	writecommand_last(i ? ILI9341_INVON : ILI9341_INVOFF);
 }
 
-
-
-
-
-
-
-
-
-
 /*
 uint8_t ILI9341_t3::readdata(void)
 {
