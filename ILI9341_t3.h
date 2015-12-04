@@ -135,10 +135,7 @@ class ILI9341_t3 : public Print
   public:
 	ILI9341_t3(uint8_t _CS, uint8_t _DC, uint8_t _RST = 255, uint8_t _MOSI=11, uint8_t _SCLK=13, uint8_t _MISO=12);
 	void begin(void);
-  void sleep(bool enable);
 	void pushColor(uint16_t color);
-	void fillScreen(uint16_t color);					///< only fills the screen with the given color but did not remember the color in bgcolor
-	void clearScreen(uint16_t bgColor);				///< clears fills the screen with bgColor and sets bgcolor
 	void drawPixel(int16_t x, int16_t y, uint16_t color);
 	void drawFastVLine(int16_t x, int16_t y, int16_t h, uint16_t color);
 	void drawFastHLine(int16_t x, int16_t y, int16_t w, uint16_t color);
@@ -167,7 +164,6 @@ class ILI9341_t3 : public Print
 	void fillCircleHelper(int16_t x0, int16_t y0, int16_t r, uint8_t cornername, int16_t delta, uint16_t color);
 	void drawEllipse(int16_t x0, int16_t y0, int16_t r_x, int16_t r_y, uint16_t color);
 	void fillEllipse(int16_t x0, int16_t y0, int16_t r_x, int16_t r_y, uint16_t color);
-
 	void drawTriangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color);
 	void fillTriangle(int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint16_t color);
 	void drawRoundRect(int16_t x0, int16_t y0, int16_t w, int16_t h, int16_t radius, uint16_t color);
@@ -198,13 +194,10 @@ class ILI9341_t3 : public Print
  protected:
 	int16_t _width, _height; // Display w/h as modified by current rotation
 	int16_t  cursor_x, cursor_y;
-	uint16_t textcolor, textbgcolor, bgColor;
 	uint8_t textsize, rotation;
 	boolean wrap; // If set, 'wrap' text at right edge of display
 	const ILI9341_t3_font_t *font;
 
-  uint8_t  _rst;
-  uint8_t _cs, _dc;
 	uint8_t pcs_data, pcs_command;
 	uint8_t _miso, _mosi, _sclk;
 
@@ -334,7 +327,6 @@ public:
 	int16_t getHeight(){return _h;}
 	int16_t getX(){return _x;}
 	int16_t getY(){return _y;}
-
 private:
 	ILI9341_t3 *_gfx;
 	int16_t _x, _y;
