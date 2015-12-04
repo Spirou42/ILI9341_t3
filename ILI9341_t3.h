@@ -184,8 +184,9 @@ class ILI9341_t3 : public Print
 	uint8_t getTextSize();
 	void setTextWrap(boolean w);
 	boolean getTextWrap();
-	void setClipRect(int16_t x1 = 0, int16_t y1 = 0, int16_t x2 = 0, int16_t y2 = 0)
+	void setClipRect(int16_t x1, int16_t y1, int16_t x2, int16_t y2)
 	  { _clipx1 = x1; _clipy1 = y1; _clipx2 = x2; _clipy2 = y2;} ;
+	void setClipRect() { _clipx1 = 0; _clipy1 = 0; _clipx2 = _width; _clipy2 = _height; }
 	virtual size_t write(uint8_t);
 	int16_t width(void)  { return _width; }
 	int16_t height(void) { return _height; }
