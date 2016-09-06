@@ -294,8 +294,7 @@ class ILI9341_t3 : public Print
 		KINETISK_SPI0.PUSHR = d | (pcs_data << 16) | SPI_PUSHR_CTAS(1) | SPI_PUSHR_EOQ;
 		waitTransmitComplete(mcr);
 	}
-	void HLine(int16_t x, int16_t y, int16_t w, uint16_t color)
-	  __attribute__((always_inline)) {
+	void HLine(int16_t x, int16_t y, int16_t w, uint16_t color) __attribute__((always_inline)) {
 
     // Rudimentary clipping
     if((y < _clipy1) || (x >= _clipx2) || (y >= _clipy2)) return;
