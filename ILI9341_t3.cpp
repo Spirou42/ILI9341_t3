@@ -1302,7 +1302,8 @@ void ILI9341_t3::drawFontChar(unsigned int c)
 				if (xsize > 32) xsize = 32;
 				uint32_t bits = fetchbits_unsigned(data, bitoffset, xsize);
 				if (!opaque) {
-					drawFontBits(bits, xsize, origin_x + x, y, 1);
+					//if(_clipx1<(origin_x+x) && _clipx2>(origin_x + x) && _clipy1<y && _clipy2>y)
+						drawFontBits(bits, xsize, origin_x + x, y, 1);
 				} else {
 					drawFontBitsOpaque(bits, xsize, origin_x + x, y, 1);
 				}
@@ -1392,7 +1393,7 @@ void ILI9341_t3::drawFontBits(uint32_t bits, uint32_t numbits, uint32_t x, uint3
 				w++;
 			}
 			else if (w > 0) {
-				// "drawFastHLine(x1 - w, y, w, textcolor)"
+				//drawFastHLine(x1 - w, y, w, textcolor);
 				writecommand_cont(ILI9341_CASET); // Column addr set
 				writedata16_cont(x1 - w);   // XSTART
 				writedata16_cont(x1);   // XEND
